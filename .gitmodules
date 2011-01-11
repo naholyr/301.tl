@@ -1,0 +1,6 @@
+[submodule "src/modules/base-converter"]
+	path = src/modules/base-converter
+	url = /home/naholyr/node-base-converter
+[submodule "src/modules/express"]
+	path = src/modules/express
+	url = https://github.com/visionmedia/express.git
