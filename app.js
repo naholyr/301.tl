@@ -1,12 +1,11 @@
-require.paths.push('./modules');
+require.paths.push(__dirname+'/src');
 
-    var bc = require('base-converter')
-    console.log(bc.decToGeneric(359461, 'AbcGHiuRSt'));
-    // Output : 'GitHub'genericToDec('GitHub', base));
+#var bc = require('base-converter');
+#console.log(bc.decTo62(1236876123));
 
-var base = require('base-converter');
-
-var n = 3598786;
-var b = base.decTo62(n);
-var n2 = base._62ToDec(b);
-console.log(n, b, n2);
+var http = require('http');
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Coming soon...');
+}).listen(8001, "127.0.0.1");
+console.log('Server running at http://127.0.0.1:8001/');
