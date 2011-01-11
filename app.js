@@ -1,7 +1,7 @@
 require.paths.push(__dirname+'/src');
 
-#var bc = require('base-converter');
-#console.log(bc.decTo62(1236876123));
+var bc = require('base-converter');
+console.log(bc.decTo62(1236876123));
 
 var http = require('http');
 http.createServer(function (req, res) {

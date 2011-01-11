@@ -1,10 +1,5 @@
-/*
-* This file is part of the Spludo Framework.
-* Copyright (c) 2009-2010 DracoBlue, http://dracoblue.net/
-*
-* Licensed under the terms of MIT License. For the full copyright and license
-* information, please see the LICENSE file in the root folder.
-*/
+// Hint : you'd better use a dedicated binary for this, like "node-dev"
+// See https://github.com/fgnass/node-dev
 
 var app_script = 'app.js';
 
