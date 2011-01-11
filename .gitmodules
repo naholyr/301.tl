@@ -13,3 +13,6 @@
 [submodule "src/daemon"]
 	path = src/daemon
 	url = https://github.com/Slashed/daemon.node.git
+[submodule "src/node-config"]
+	path = src/node-config
+	url = https://github.com/ArtS/node-config.git

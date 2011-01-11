@@ -1,11 +1,13 @@
 require.paths.push(__dirname+'/src');
 
-var bc = require('base-converter');
-console.log(bc.decTo62(1236876123));
+var conf = require('node-config');
+conf.currentDirectory = __dirname;
 
-var http = require('http');
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Coming soon...');
-}).listen(8001, "127.0.0.1");
-console.log('Server running at http://127.0.0.1:8001/');
+conf.initConfig(function(err) {
+	if (err) {
+		require('sys').log('Unable to init config: ' + err);
+		return;
+	}
+
+	require('301tl').start(conf);
+});
