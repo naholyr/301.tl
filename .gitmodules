@@ -4,3 +4,12 @@
 [submodule "src/modules/express"]
 	path = src/modules/express
 	url = https://github.com/visionmedia/express.git
+[submodule "src/express"]
+	path = src/express
+	url = https://github.com/visionmedia/express.git
+[submodule "src/base-converter"]
+	path = src/base-converter
+	url = https://github.com/naholyr/node-base-converter.git
+[submodule "src/daemon"]
+	path = src/daemon
+	url = https://github.com/Slashed/daemon.node.git
