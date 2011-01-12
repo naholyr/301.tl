@@ -1,18 +1,13 @@
-// Base module
-require.paths.push(__dirname + '/src');
+require.paths.push('./src');
+require.paths.push('./node_modules');
 
-// Bundled dependencies
-require.paths.push(__dirname + '/src/301.tl/node_modules');
+process.chdir(__dirname);
 
-// Load configuration module
-var conf = require('node-config');
+var express = require('express');
+    main = require('301.tl'),
+    app = main.app(express);
 
-// Load configuration and start server as soon as loaded
-conf.initConfig(function(err) {
-	if (err) {
-		require('sys').log('Unable to init config: ' + err);
-		return;
-	}
+app.set('port', '8001');
 
-	require('301.tl').start(conf);
-});
+// Start server
+app.start();
