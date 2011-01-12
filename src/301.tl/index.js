@@ -1,3 +1,11 @@
+exports.conf = function(dirname) {
+	var conf = require('node-config');
+	if (typeof dirname != 'undefined') {
+		conf.currentDirectory = __dirname;
+	}
+	return conf;
+}
+
 exports.start = function(conf) {
 
 	var app = require('express').createServer();

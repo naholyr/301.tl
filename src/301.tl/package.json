@@ -1,0 +1,18 @@
+{
+  "name": "301.tl",
+  "description": "Main application for 301.tl URL shortener",
+  "version": "0.0.1",
+  "repository": "git://github.com/naholyr/301.tl.git",
+  "author": "Nicolas Chambrier <naholyr@gmail.com>",
+  "directories": {
+    "lib": "."
+  },
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {
+    "express": "1.0.x",
+    "node-config": "*",
+    "base-converter": ">=1.0.0"
+  }
+}

@@ -1,2 +1,7 @@
+conf/*
+!conf/common.js
+
 *.log
 *.pid
+
+src/301.tl/node_modules

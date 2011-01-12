@@ -1,5 +1,35 @@
-TODO Créer un module "301tl" et gérer les dépendances dans son package.json, pour simplifier l'installation des modules 3rd partie avec simplement "npm install ."
-Dépendances :
- * express
- * base-converter
- * node-config
+Installation
+------------
+
+Install dependencies in your global npm repository :
+
+    cd src/301.tl && npm install && cd ../..
+
+Bundle dependencies locally :
+
+    cd src/301.tl && npm bundle && cd ../..
+
+
+Configuration
+-------------
+
+301.tl uses "node-config" for its configuration.
+
+    vi conf/$(hostname).js
+
+Then add configuration options specific to your host with this format :
+
+    exports.conf = {
+      option: value,
+    }
+
+Available options :
+
+* port (default 8001)
+* host to listen (default '127.0.0.1')
+
+
+Run
+---
+
+    node app.js
