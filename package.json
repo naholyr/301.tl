@@ -4,9 +4,6 @@
   "version": "0.0.1",
   "repository": "git://github.com/naholyr/301.tl.git",
   "author": "Nicolas Chambrier <naholyr@gmail.com>",
-  "directories": {
-    "lib": "."
-  },
   "engines": {
     "node": "*"
   },

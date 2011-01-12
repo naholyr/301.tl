@@ -8,6 +8,9 @@ var express = require('express'),
     main = require('301.tl'),
     app = main.app(express, config);
 
+// Configure routing
+require('routing').configure(app);
+
 console.log('ENV', app.set('env'));
 
 // Start server

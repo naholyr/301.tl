@@ -4,4 +4,4 @@ conf/*
 *.log
 *.pid
 
-src/301.tl/node_modules
+node_modules

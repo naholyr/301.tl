@@ -1,11 +1,3 @@
-function routing(app, express) {
-
-	app.get('/', function(req, res) {
-		res.send('Coming soon...');
-	});
-
-}
-
 function configure(app, express, config) {
 	// Global
 	app.configure(function() {
@@ -32,14 +24,9 @@ function configure(app, express, config) {
 		}
 	});
 
-	// Dev
+	// Dev : nice Express error handler
 	app.configure('development', function(){
 		app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-	});
-
-	// Prod
-	app.configure('production', function(){
-		app.use(express.errorHandler());
 	});
 }
 
@@ -77,7 +64,6 @@ exports.app = function(express, config) {
 	}
 
 	configure(app, express, config || {});
-	routing(app, express);
 
 	return app;
 }
