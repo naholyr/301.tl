@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "express": "1.0.x",
+    "node-config": "*",
     "base-converter": ">=1.0.0"
   }
 }

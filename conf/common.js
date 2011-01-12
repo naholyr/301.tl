@@ -1,4 +1,5 @@
 exports.conf = {
-	port: 8001,           # Server port
-	host: '127.0.0.1',    # Host listened to
+	port:         3000,                          // Server port
+	host:         '127.0.0.1',                   // Listen connections from
+	static_paths: [process.cwd() + '/public'],   // Static paths
 }
