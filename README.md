@@ -1,13 +1,12 @@
 Installation
 ------------
 
-Install dependencies in your global npm repository :
-
-    cd src/301.tl && npm install && cd ../..
-
-Bundle dependencies locally :
-
-    cd src/301.tl && npm bundle && cd ../..
+    # Checkout
+    git clone git@github.com:naholyr/301.tl.git
+    cd 301.tl
+    
+    # Resolve dependencies
+    npm bundle
 
 
 Configuration
@@ -25,7 +24,7 @@ Then add configuration options specific to your host with this format :
 
 Available options :
 
-* port (default 8001)
+* port (default 3000)
 * host to listen (default '127.0.0.1')
 
 
