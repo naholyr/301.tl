@@ -1,4 +1,11 @@
 /**
+ * ! IMPORTANT NOTE ABOUT PERFORMANCES !
+ * "require()" is a costing operation, executing a "require()" on each request could break your perfs down, that's why you should ABSOLUTELY AVOID
+ * using ":module" in your URLs. Still, it's possible, but seriously, don't use it :)
+ * tested with "ab -n 10000 -c 50" -> with a require() in the request handler median ~= 300, without median ~= 45.
+ * If you explicitely declare the module used by your route in options, it will be loaded and cached once for all when server starts, which explains
+ * the gain.
+ * 
  * in conf/routes.js:
  *
  * exports.routes = {
@@ -72,7 +79,7 @@ exports.configure = function(app, controllers_dir) {
 					req.params[p] = params[p];
 				}
 			}
-			(route.handler || require(controllers_dir + req.params.module)[req.params.action])(req, res, next);
+			(route.handler || (cached_controller_modules[req.params.module] || require(controllers_dir + req.params.module))[req.params.action])(req, res, next);
 		};
 	}
 
@@ -89,13 +96,20 @@ exports.configure = function(app, controllers_dir) {
 		if (!(methods instanceof Array)) {
 			methods = [methods];
 		}
+		if (typeof route.module != 'undefined') {
+			try {
+				mod = require(controllers_dir + route.module);
+				cached_controller_modules[route.module] = mod;
+			} catch (e) {
+				// skip
+			}
+		}
 		for (var i=0; i<methods.length; i++) {
 			app[methods[i]](route.url, getRouteHandler(route));
 		}
 	}
 
 	// Basic error handler
-
 	function Error404(msg) {
 		this.name = 'Error404';
 		Error.call(this, msg);
@@ -103,7 +117,7 @@ exports.configure = function(app, controllers_dir) {
 	}
 	require('sys').inherits(Error404, Error);
 
-	app.all(/.*/, function(req, res, next) {
+	app.all(/.* /, function(req, res, next) {
 		throw new Error404();
 	});
 	app.error(function(err, req, res, next) {
@@ -124,3 +138,5 @@ exports.configure = function(app, controllers_dir) {
 		}		
 	});
 }
+
+var cached_controller_modules = {};
