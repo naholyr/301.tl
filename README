@@ -1,1 +1,5 @@
 TODO Créer un module "301tl" et gérer les dépendances dans son package.json, pour simplifier l'installation des modules 3rd partie avec simplement "npm install ."
+Dépendances :
+ * express
+ * base-converter
+ * node-config
