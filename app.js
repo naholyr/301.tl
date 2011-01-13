@@ -1,5 +1,4 @@
-require.paths.push('./src');
-require.paths.push('./node_modules');
+require.paths.push('./src', './node_modules');
 
 process.chdir(__dirname);
 
