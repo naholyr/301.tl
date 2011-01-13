@@ -69,10 +69,10 @@ exports.configure = function(app, controllers_dir) {
 		var params = route.params || {};
 		return function(req, res, next) {
 			if (typeof req.params.module == 'undefined') {
-				req.params.module = 'default';
+				req.params.module = route.module || 'default';
 			}
 			if (typeof req.params.action == 'undefined') {
-				req.params.action = 'default';
+				req.params.action = route.action || 'default';
 			}
 			for (var p in params) {
 				if (typeof req.params[p] == 'undefined') {

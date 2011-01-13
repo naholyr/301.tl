@@ -4,13 +4,21 @@ process.chdir(__dirname);
 
 var express = require('express'),
     config = require('node-config'),
-    main = require('301.tl'),
-    app = main.app(express, config);
+    main = require('301.tl')
 
-// Configure routing
-require('routing').configure(app);
+main.app(express, config, function(app, express, config) {
+	app.url_provider = require('url-provider').get(config.url_provider, config[config.url_provider])
+	app.url_provider.open(function(err) {
+		if (err) {
+			throw err
+		}
 
-console.log('ENV', app.set('env'));
+		// Configure routing
+		require('routing').configure(app)
 
-// Start server
-app.start();
+		console.log('ENV', app.set('env'))
+
+		// Start server
+		app.start()
+	})
+})
