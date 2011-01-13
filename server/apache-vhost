@@ -1,0 +1,16 @@
+<VirtualHost *:80>                                                                                                                                                                                                                                  
+        ServerName mysite.domain
+
+	# Enable to work with RewriteMap instead of direct redirects
+	# Tests are not very eloquent for now, but it seems this method has some issues with many concurrent connections
+	#RewriteEngine On
+	#RewriteMap longUrl "prg:/usr/local/bin/node /path/to/server/rewrite-map.js"
+	#RewriteRule ^/([a-zA-Z0-9]+) ${longUrl:$1} [R]
+
+	ProxyPass / http://127.0.0.1:3000/
+	CustomLog /var/log/apache2/mysite.domain-access.log combined
+	ErrorLog /var/log/apache2/mysite.domain-error.log
+	<Proxy *>
+		Allow from all
+	</Proxy>
+</VirtualHost>
