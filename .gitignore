@@ -1,5 +1,6 @@
 conf/*
 !conf/common.js
+!conf/routes.js
 
 *.log
 *.pid
