@@ -1,24 +1,22 @@
-require.paths.push('./src', './node_modules');
-
 process.chdir(__dirname);
 
-var express = require('express'),
-    config = require('node-config'),
-    main = require('301.tl')
+require.paths.push('./lib', './node_modules');
 
-main.app(express, config, function(app, express, config) {
-	app.url_provider = require('url-provider').get(config.url_provider, config[config.url_provider])
-	app.url_provider.open(function(err) {
+main = require('301.tl')
+
+require('server')(function(server, conf, express) {
+	// main.onPreConfigureRoutes = function(app, conf, express)  { /* prepend your own routes here */ }
+	// main.onPostConfigureRoutes = function(app, conf, express) { /* append your own routes here */ }
+
+	main.start(server, conf, express, function(err, url_provider) {
 		if (err) {
 			throw err
 		}
 
-		// Configure routing
-		require('routing').configure(app)
-
-		console.log('ENV', app.set('env'))
-
 		// Start server
-		app.start()
+		server.start(function() {
+			console.log('Environment: ' + server.set('env'))
+			console.log('Server running at http://' + server.set('host') + ':' + server.set('port'))
+		})
 	})
 })
