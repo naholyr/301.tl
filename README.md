@@ -26,7 +26,9 @@ Available options :
 
 * port (default 3000)
 * host to listen (default '127.0.0.1')
-
+* static_paths (default ['./public'])
+* url_provider (default 'redis') engine for encoding/decoding URLs
+  * redis.db (default '301tl) Redis database used to store encoded/decoded URLs
 
 Run
 ---
