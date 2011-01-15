@@ -1,0 +1,40 @@
+#!/bin/sh
+
+APPENV=production
+PIDFILE=/var/run/301tl.pid
+LOGFILE=/var/www/nodes/301.tl/app.log
+NODE_EXEC=/usr/local/bin/node
+APPFILE=/var/www/nodes/301.tl/app.js
+
+case "$1" in
+    start)
+        if [ -f $PIDFILE ]
+        then
+                echo -n "$PIDFILE exists, process is already running or crashed\n"
+        else
+                echo -n "Starting 301.tl server...\n"
+                if [ ! -f $LOGFILE ]; then touch $LOGFILE; fi
+                NODE_ENV=$APPENV $NODE_EXEC $APPFILE 2>&1 >> $LOGFILE & echo $! > $PIDFILE
+        fi
+        ;;
+    stop)
+        if [ ! -f $PIDFILE ]
+        then
+                echo -n "$PIDFILE does not exist, process is not running\n"
+        else
+		PID=$(cat $PIDFILE)
+                echo -n "Stopping PID $PID...\n"
+                kill $PID &
+                while [ -x /proc/${PIDFILE} ]
+                do
+                    echo "Waiting for 301.tl to shutdown ..."
+                    sleep 1
+                done
+                rm $PIDFILE
+                echo "301.tl stopped"
+        fi
+        ;;
+    reload|restart)
+        $0 stop && $0 start
+        ;;
+esac
