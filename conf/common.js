@@ -5,6 +5,8 @@ exports.conf = {
 
 	url_provider: 'redis', // URL provider engine
 	redis: {
+		host:   '127.0.0.1',
+		port:   6379,
 		db:     '301tl', // Redis database
 	},
 }
