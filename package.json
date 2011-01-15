@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "express": "1.0.x",
+    "jade": "*",
     "node-config": "*",
     "base-converter": ">=1.0.0",
     "redis": ">=0.5.0",
