@@ -1,3 +1,10 @@
+Dependencies
+------------
+
+* [Node.JS](https://github.com/ry/node)
+* [npm](https://github.com/isaacs/npm)
+* [Redis](https://github.com/antirez/redis)
+
 Installation
 ------------
 
@@ -7,7 +14,6 @@ Installation
     
     # Resolve dependencies
     npm bundle
-
 
 Configuration
 -------------
@@ -22,15 +28,28 @@ Then add configuration options specific to your host with this format :
       option: value,
     }
 
-Available options :
+Available options
+=================
+
+These are the common options you may want to customize:
 
 * port (default 3000)
 * host to listen (default '127.0.0.1')
-* static_paths (default ['./public'])
-* url_provider (default 'redis') engine for encoding/decoding URLs
-  * redis.db (default '301tl) Redis database used to store encoded/decoded URLs
+
+The other ones are not supposed to be changed, unless you want to really want to run your own instance. Then you'd better fork, don't you think ? ;)
 
 Run
 ---
 
-    node app.js
+During development:
+
+    # Server will automatically be restarted whenever a source file is changed
+    node server/run_dev.js &> app.log &
+
+In production:
+
+    # Installation as a service
+    sudo cp server/init_script /etc/init.d/301.tl
+    sudo update-rc.d 301.tl defaults
+    # Start service
+    sudo service 301.tl start
