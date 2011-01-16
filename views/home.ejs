@@ -48,6 +48,7 @@ $('#F_shorten').submit(function(e) {
 		},
 		success: function(res, status, req) {
 			$('#shortUrl').attr({href:res.shortUrl, title:res.longUrl}).html(res.shortUrl);
+			$('#f_longUrl').val(res.longUrl);
 			$('#shortUrl_container').show();
 		},
 		type: 'POST',
