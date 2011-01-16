@@ -1,0 +1,8 @@
+<p>Hits on <a href="<%= shortUrl %>" title="<%= longUrl %>"><%= shortUrlHost %>/<strong><%= shortUrlKey %></strong></a>:
+<ul>
+ <% for (var i=0; i<nbHits.length; i++) { %>
+ <li><%= nbHits[i] %>
+ <% } %>
+</ul>
+<p><a href="<%= shortUrl %>+" title="Stats summary">Access summary</a>
+ 
