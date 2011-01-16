@@ -3,25 +3,25 @@
 <h2>Public API</h2>
 
 <h3>Basic usage</h3>
-<p><code>http://api.<%= host %>/?longUrl=&lt;url to encode&gt;[&custom=&lt;my key&gt;][&private=0|1]</code>
+<p><code>http://<%= api_host %>/?longUrl=&lt;url to encode&gt;[&amp;custom=&lt;my key&gt;][&amp;private=0|1]</code>
 <p>Note that a custom key will always be private.
 
 <h3>Protocols and formats</h3>
 <ul>
  <li>Using <strong>POST</strong> and expecting <strong>HTML</strong><br>
-  Request:  <code>curl 'http://api.<%= host %>' -d 'longUrl=http://www.google.com'</code><br>
+  Request:  <code>curl 'http://<%= api_host %>' -d 'longUrl=http://www.google.com'</code><br>
   Response: <code>&lt;a href="http://<%= host %>/g" title="http://www.google.com"&gt;301.tl/&lt;strong&gt;g&lt;/strong&gt;&lt;/a&gt;</code>
  <li>Using <strong>POST</strong> and expecting <strong>JSON</strong><br>
-  Request:  <code>curl 'http://api.<%= host %>' -d '{"longUrl":"http://www.google.com"}' -H 'Content-Type: application/json'</code><br>
+  Request:  <code>curl 'http://<%= api_host %>' -d '{"longUrl":"http://www.google.com"}' -H 'Content-Type: application/json'</code><br>
   Response: <code>{"shortUrl":"http://<%= host %>/g","longUrl":"http://www.google.com"}</code>
  <li>Using <strong>GET</strong> and expecting <strong>HTML</strong><br>
-  Request:  <code>curl 'http://api.<%= host %>?longUrl=http://www.google.com'</code><br>
+  Request:  <code>curl 'http://<%= api_host %>?longUrl=http://www.google.com'</code><br>
   Response: <code>&lt;a href="http://<%= host %>/g" title="http://www.google.com"&gt;301.tl/&lt;strong&gt;g&lt;/strong&gt;&lt;/a&gt;</code>
  <li>Using <strong>GET</strong> and expecting <strong>JSON</strong><br>
-  Request:  <code>curl 'http://api.<%= host %>?longUrl=http://www.google.com' -H 'Content-Type: application/json'</code><br>
+  Request:  <code>curl 'http://<%= api_host %>?longUrl=http://www.google.com' -H 'Content-Type: application/json'</code><br>
   Response: <code>{"shortUrl":"http://<%= host %>/g","longUrl":"http://www.google.com"}</code>
  <li>Using <strong>GET</strong> and expecting <strong>TEXT</strong><br>
-  Request:  <code>curl 'http://api.<%= host %>?longUrl=http://www.google.com' -H 'Content-Type: text/plain'</code><br>
+  Request:  <code>curl 'http://<%= api_host %>?longUrl=http://www.google.com' -H 'Content-Type: text/plain'</code><br>
   Response: <code>shortUrl=http://<%= host %>/g\nlongUrl=http://www.google.com</code>
 </ul>
 <p>I still have an issue recognizing POST requests with text/plain content type. Working on it...
@@ -29,16 +29,17 @@
 
 <h3>Statistics</h3>
 <p>Statistics can be checked by anyone, using GET, appending "+" to the short URL, and specifying the content type. Output is very similar to what you get with encoding API, except you get an additional "hits" information.
+<p>Note that statistics API can be accessed 
 <ul>
  <li>Expecting <strong>HTML</strong><br>
-   Request:  <code>curl 'http://301.tl/1+' -H 'Content-Type: text/html'</code><br>
-   Response: <code>&lt;a href="http://301.tl/1" title="http://google.fr"&gt;301.tl/&lt;strong&gt;1&lt;/strong&gt;&lt;/a&gt; has been hit 2 times.</code>
+   Request:  <code>curl 'http://<%= api_host %>/1+' -H 'Content-Type: text/html'</code><br>
+   Response: <code>&lt;a href="http://<%= host %>/g" title="http://google.fr"&gt;<%= host %>/&lt;strong&gt;1&lt;/strong&gt;&lt;/a&gt; has been hit 2 times.</code>
  <li>Expecting <strong>TEXT</strong><br>
-   Request:  <code>curl 'http://301.tl/1+' -H 'Content-Type: text/plain'</code><br>
-   Response: <code>shortUrl=http://301.tl/1\nlongUrl=http://google.fr\nhits=2</code>
+   Request:  <code>curl 'http://<%= api_host %>/1+' -H 'Content-Type: text/plain'</code><br>
+   Response: <code>shortUrl=http://<%= host %>/1\nlongUrl=http://google.fr\nhits=2</code>
  <li>Expecting <strong>JSON</strong><br>
-   Request:  <code>curl 'http://301.tl/1+' -H 'Content-Type: application/json'</code><br>
-   Response: <code>{"shortUrl":"http://301.tl/1","longUrl":"http://google.fr","hits":"2"}</code>
+   Request:  <code>curl 'http://<%= api_host %>/1+' -H 'Content-Type: application/json'</code><br>
+   Response: <code>{"shortUrl":"http://<%= host %>/1","longUrl":"http://google.fr","hits":"2"}</code>
 </ul>
 
 <h3>Private or public ?</h3>

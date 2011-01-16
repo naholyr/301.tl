@@ -9,4 +9,15 @@ exports.conf = {
 		db:     3,                           // Redis database index
 		pw:     undefined,                   // Redis password
 	},
+
+	view: {
+		helpers: {
+			site_name:  '301 - URL Too Long',
+			host:       '301.tl',
+			api_host:   'api.301.tl',
+                        site_title: 'shorten Too Long URLs',
+                },
+		dynamicHelpers: {
+		},
+	}
 }

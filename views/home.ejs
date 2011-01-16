@@ -1,7 +1,7 @@
-<p>See <a href="http://api.<%= host %>" title="API">api.<%= host %></a> for more information</p>
+<p>See <a href="http://<%= api_host %>" title="API"><%= api_host %></a> for more information</p>
 <div id="error" class="error" style="display:none"></div>
 <div id="shortUrl_container" style="display:none">Your short URL : <a id="shortUrl"></a></div>
-<form method="post" action="http://api.<%= host %>" id="F_shorten">
+<form method="post" action="http://<%= api_host %>" id="F_shorten">
  <label for="f_longUrl">Too Long URL</label> <input type="text" name="longUrl" id="f_longUrl" size="50">
  <input type="submit" value="Shorten"><br>
  <input type="checkbox" name="private" value="1" id="f_private"> <label for="f_private">I want it private</label><span id="if_private">, 
