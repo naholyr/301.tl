@@ -22,7 +22,9 @@ require('server')(function(server, conf, express) {
 })
 
 // Make the process error proof
-/*process.on('uncaughtException', function (err) {
+process.on('uncaughtException', function (err) {
 	console.log('Uncaught exception: ' + err)
-	console.log(err)
-});*/
+	if (err instanceof Error) {
+		console.log(err.stack)
+	}
+});
