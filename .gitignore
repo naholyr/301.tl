@@ -1,8 +1,11 @@
-conf/*
-!conf/common.js
-!conf/routes.js
+/.settings
+/.project
 
-*.log
-*.pid
+/conf/*
+!/conf/common.js
+!/conf/routes.js
 
-node_modules
+/*.log
+/*.pid
+/node_modules
+/dump.rdb
