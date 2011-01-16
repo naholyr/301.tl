@@ -1,1 +1,57 @@
-<p>See <a href="<%= api_url %>" title="API"><%= api_url %></a> for more information</p>
+<p>See <a href="http://api.<%= host %>" title="API">api.<%= host %></a> for more information</p>
+<div id="error" class="error" style="display:none"></div>
+<div id="shortUrl_container" style="display:none">Your short URL : <a id="shortUrl"></a></div>
+<form method="post" action="http://api.<%= host %>" id="F_shorten">
+ <label for="f_longUrl">Too Long URL</label> <input type="text" name="longUrl" id="f_longUrl" size="50">
+ <input type="submit" value="Shorten"><br>
+ <input type="checkbox" name="private" value="1" id="f_private"> <label for="f_private">I want it private</label>, 
+ <label for="f_custom">and I even want a custom URL</label> http://<%= host %>/<input type="text" name="custom" id="f_custom" size="10">
+</form>
+<script type="text/javascript">
+$('#F_shorten').submit(function(e) {
+	var form = $(this);
+
+	// Do we come from an Ajax error ?
+	if (form.data('ajax-error')) {
+		return true;
+	}
+
+	// Disable default submit
+	e.preventDefault();
+
+	// Build request data
+	var data = {longUrl: $('#f_longUrl').val()};
+	var custom = $('#f_custom').val();
+	if (custom) {
+		data.custom = custom;
+	} else if ($('#f_private').is(':checked')) {
+		data.private = true;
+	}
+
+	// Ajax call (TODO compatibility with old-browsers with JSONP)
+	$.ajax({
+		async: true,
+		contentType: 'application/json',
+		context: $('#shortened_url'),
+		data: JSON.stringify(data),
+		dataType: 'json',
+		error: function(req, status, err) {
+			if (err) {
+				// JS error : re-submit form without using Ajax
+				form.data('ajax-error', true);
+				form.submit();
+			} else {
+				// Server error
+				var res = JSON.parse(req.responseText);
+				$('#error').html(res.error + ' - ' + res.message).show();
+			}
+		},
+		success: function(res, status, req) {
+			$('#shortUrl').attr({href:res.shortUrl, title:res.longUrl}).html(res.shortUrl);
+			$('#shortUrl_container').show();
+		},
+		type: 'POST',
+		url: $('#F_shorten').attr('action')
+	});
+});
+</script>
