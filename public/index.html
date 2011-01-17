@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <title>301.tl - shorten Too Long URLs</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link href="http://fonts.googleapis.com/css?family=Coda:800" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=1">
+  <script src="js/modernizr-1.6.min.js"></script>
+  <script>var j=(function(w){var q=[],a=function(f){if(w.$)w.$(f);else q.push(f)};a._=function($){for(var i=0;i<q.length;i++)q[i]();q=[]};return a})(window)</script>
+ </head>
+ <body>
+  <header> 
+   <p>Coming soon...</p>
+   <h1><a href="http://301.tl">301 ✄ url Too Long</a></h1>
+  </header>
+  <div id="main">
+
+<p class="info">See <a href="http://api.301.tl" title="API">api.301.tl</a> for more information</p>
+<div id="error" class="error" style="display:none"></div>
+<div id="shortUrl_container" class="success" style="display:none">Your short URL : <a id="shortUrl"></a></div>
+<form method="post" action="http://api.301.tl" id="F_shorten">
+ <p><label for="f_longUrl">Too Long URL</label> <input type="text" name="longUrl" id="f_longUrl" size="20" value="http://"><input type="submit" value="Shorten" class="submitLongUrl">
+ <p class="additional"><input type="checkbox" name="private" value="1" id="f_private"> <label for="f_private">I want it private</label><span id="if_private">, <label for="f_custom">and I even want a custom URL</label> http://301.tl/<input type="text" name="custom" id="f_custom" size="10"></span>
+</form>
+<script>
+j(function() {
+	$('#f_longUrl').focus();
+	$('#if_private').hide()
+	$('#f_private').change(function(e) {
+		if ($(this).is(':checked')) {
+			$('#if_private').show();
+			$('#f_custom').focus();
+		} else {
+			$('#if_private').hide();
+		}
+	});
+	$('#F_shorten').submit(function(e) {
+		var form = $(this);
+	
+		$('#error, #shortUrl_container').hide();
+	
+		// Do we come from an Ajax error ?
+		if (form.data('ajax-error')) {
+			return true;
+		}
+	
+		// Disable default submit
+		e.preventDefault();
+	
+		// Build request data
+		var data = {longUrl: $('#f_longUrl').val()};
+		var custom = $('#f_custom').val();
+		if (custom) {
+			data.custom = custom;
+		} else if ($('#f_private').is(':checked')) {
+			data.private = true;
+		}
+	
+		// Ajax call (TODO compatibility with old-browsers with JSONP)
+		$.ajax({
+			async: true,
+			contentType: 'application/json',
+			context: $('#shortened_url'),
+			data: JSON.stringify(data),
+			dataType: 'json',
+			error: function(req, status, err) {
+				if (err) {
+					// JS error : re-submit form without using Ajax
+					form.data('ajax-error', true);
+					form.submit();
+				} else {
+					// Server error
+					var res = JSON.parse(req.responseText);
+					$('#error').html(res.error + ' - ' + res.message).show();
+				}
+			},
+			success: function(res, status, req) {
+				if (res == null) {
+					// Unauthorized access
+					$('#error').html('403 - Forbidden access').show();
+					return;
+				}
+				$('#error').hide();
+				$('#shortUrl').attr({href:res.shortUrl, title:res.longUrl}).html(res.shortUrl);
+				$('#f_longUrl').val(res.longUrl);
+				$('#shortUrl_container').show();
+			},
+			type: 'POST',
+			url: $('#F_shorten').attr('action')
+		});
+	});
+});
+</script>
+
+  </div>
+  <footer>
+   <p>copyright &amp; co</p>
+  </footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script>!window.jQuery&&document.write(unescape('%3Cscript src="js/jquery-1.4.2.min.js"%3E%3C/script%3E'))</script>
+  <script src="js/main.js"></script>
+ </body>
+</html>

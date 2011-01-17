@@ -1,70 +1,76 @@
-<p>See <a href="http://<%= api_host %>" title="API"><%= api_host %></a> for more information</p>
+<p class="info">See <a href="http://<%= api_host %>" title="API"><%= api_host %></a> for more information</p>
 <div id="error" class="error" style="display:none"></div>
-<div id="shortUrl_container" style="display:none">Your short URL : <a id="shortUrl"></a></div>
+<div id="shortUrl_container" class="success" style="display:none">Your short URL : <a id="shortUrl"></a></div>
 <form method="post" action="http://<%= api_host %>" id="F_shorten">
- <label for="f_longUrl">Too Long URL</label> <input type="text" name="longUrl" id="f_longUrl" size="50">
- <input type="submit" value="Shorten"><br>
- <input type="checkbox" name="private" value="1" id="f_private"> <label for="f_private">I want it private</label><span id="if_private">, 
- <label for="f_custom">and I even want a custom URL</label> http://<%= host %>/<input type="text" name="custom" id="f_custom" size="10"></span>
+ <p><label for="f_longUrl">Too Long URL</label> <input type="text" name="longUrl" id="f_longUrl" size="20" value="http://"><input type="submit" value="Shorten" class="submitLongUrl">
+ <p class="additional"><input type="checkbox" name="private" value="1" id="f_private"> <label for="f_private">I want it private</label><span id="if_private">, <label for="f_custom">and I even want a custom URL</label> http://<%= host %>/<input type="text" name="custom" id="f_custom" size="10"></span>
 </form>
 <script type="text/javascript">
-$('#if_private').hide()
-$('#f_private').change(function(e) {
-	if ($(this).is(':checked')) {
-		$('#if_private').show();
-		$('#f_custom').focus();
-	} else {
-		$('#if_private').hide();
-	}
-});
-$('#F_shorten').submit(function(e) {
-	var form = $(this);
-
-	$('#error, #shortUrl_container').hide();
-
-	// Do we come from an Ajax error ?
-	if (form.data('ajax-error')) {
-		return true;
-	}
-
-	// Disable default submit
-	e.preventDefault();
-
-	// Build request data
-	var data = {longUrl: $('#f_longUrl').val()};
-	var custom = $('#f_custom').val();
-	if (custom) {
-		data.custom = custom;
-	} else if ($('#f_private').is(':checked')) {
-		data.private = true;
-	}
-
-	// Ajax call (TODO compatibility with old-browsers with JSONP)
-	$.ajax({
-		async: true,
-		contentType: 'application/json',
-		context: $('#shortened_url'),
-		data: JSON.stringify(data),
-		dataType: 'json',
-		error: function(req, status, err) {
-			if (err) {
-				// JS error : re-submit form without using Ajax
-				form.data('ajax-error', true);
-				form.submit();
-			} else {
-				// Server error
-				var res = JSON.parse(req.responseText);
-				$('#error').html(res.error + ' - ' + res.message).show();
-			}
-		},
-		success: function(res, status, req) {
-			$('#error').hide();
-			$('#shortUrl').attr({href:res.shortUrl, title:res.longUrl}).html(res.shortUrl);
-			$('#f_longUrl').val(res.longUrl);
-			$('#shortUrl_container').show();
-		},
-		type: 'POST',
-		url: $('#F_shorten').attr('action')
+j(function() {
+	$('#f_longUrl').focus();
+	$('#if_private').hide()
+	$('#f_private').change(function(e) {
+		if ($(this).is(':checked')) {
+			$('#if_private').show();
+			$('#f_custom').focus();
+		} else {
+			$('#if_private').hide();
+		}
+	});
+	$('#F_shorten').submit(function(e) {
+		var form = $(this);
+	
+		$('#error, #shortUrl_container').hide();
+	
+		// Do we come from an Ajax error ?
+		if (form.data('ajax-error')) {
+			return true;
+		}
+	
+		// Disable default submit
+		e.preventDefault();
+	
+		// Build request data
+		var data = {longUrl: $('#f_longUrl').val()};
+		var custom = $('#f_custom').val();
+		if (custom) {
+			data.custom = custom;
+		} else if ($('#f_private').is(':checked')) {
+			data.private = true;
+		}
+	
+		// Ajax call (TODO compatibility with old-browsers with JSONP)
+		$.ajax({
+			async: true,
+			contentType: 'application/json',
+			context: $('#shortened_url'),
+			data: JSON.stringify(data),
+			dataType: 'json',
+			error: function(req, status, err) {
+				if (err) {
+					// JS error : re-submit form without using Ajax
+					form.data('ajax-error', true);
+					form.submit();
+				} else {
+					// Server error
+					var res = JSON.parse(req.responseText);
+					$('#error').html(res.error + ' - ' + res.message).show();
+				}
+			},
+			success: function(res, status, req) {
+				if (res == null) {
+					// Unauthorized access
+					$('#error').html('403 - Forbidden access').show();
+					return;
+				}
+				$('#error').hide();
+				$('#shortUrl').attr({href:res.shortUrl, title:res.longUrl}).html(res.shortUrl);
+				$('#f_longUrl').val(res.longUrl);
+				$('#shortUrl_container').show();
+			},
+			type: 'POST',
+			url: $('#F_shorten').attr('action')
+		});
 	});
 });
 </script>
