@@ -20,6 +20,7 @@ Configuration
 
 301.tl uses "node-config" for its configuration.
 
+    cp conf/common.js conf/$(hostname).js
     vi conf/$(hostname).js
 
 Then add configuration options specific to your host with this format :
