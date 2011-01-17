@@ -24,7 +24,7 @@ require('server')(function(server, conf, express) {
 // Make the process error proof
 process.on('uncaughtException', function (err) {
 	console.log('[' + new Date() + '] Uncaught exception: ' + err);
-	if (err instanceof Error) {
+	if (err instanceof Error && err.message != 'Server already opened') {
 		console.log(err.stack);
 	}
 });
