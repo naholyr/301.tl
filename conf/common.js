@@ -10,6 +10,8 @@ exports.conf = {
 		pw:     undefined,                   // Redis password
 	},
 
+	ajax_allowed_hosts: '*',                     // '*' or list of authorized hosts like "http://mysite.com"
+
 	view: {
 		helpers: {
 			site_name:  '301 - URL Too Long',
