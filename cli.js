@@ -1,10 +1,10 @@
-#!/usr/bin/env node
+//#!/usr/bin/env node
 
 require.paths.push('./src', './node_modules');
 
 process.chdir(__dirname);
 
-conf = require('node-config');
+var conf = require('node-config');
 
 conf.initConfig(function(err) {
 
@@ -27,7 +27,7 @@ conf.initConfig(function(err) {
 					}
 					process.stdout.write(key + "\n");
 					provider.close();
-				})
+				});
 				break;
 			case 'decode':
 				provider.decode(process.argv[3], function(err, url) {
@@ -36,11 +36,11 @@ conf.initConfig(function(err) {
 					}
 					process.stdout.write(url + "\n");
 					provider.close();
-				})
+				});
 				break;
 			default:
 				throw "Unknown command, use 'encode' or 'decode'";
 		}
-	})
+	});
 
-})
+});

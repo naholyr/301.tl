@@ -7,7 +7,7 @@ exports.conf = {
 		host:   '127.0.0.1',
 		port:   6379,
 		db:     3,                           // Redis database index
-		pw:     undefined,                   // Redis password
+		pw:     undefined                    // Redis password
 	},
 
 	ajax_allowed_hosts: '*',                     // '*' or list of authorized hosts like "http://mysite.com"
@@ -17,9 +17,9 @@ exports.conf = {
 			site_name:  '301 - URL Too Long',
 			host:       '301.tl',
 			api_host:   'api.301.tl',
-                        site_title: 'shorten Too Long URLs',
+                        site_title: 'shorten Too Long URLs'
                 },
 		dynamicHelpers: {
-		},
+		}
 	}
-}
+};

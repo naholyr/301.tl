@@ -1,9 +1,9 @@
-#!/usr/bin/env node
+//#!/usr/bin/env node
 
-ready = false
+ready = false;
 
 // Key decoding
-var provider
+var provider;
 function decode(key) {
 	if (ready) {
 		provider.decode(key, function(err, url) {
@@ -15,29 +15,29 @@ function decode(key) {
 		});
 	} else {
 		// wait to be ready...
-		setTimeout(function() { decode(key) }, 100);
+		setTimeout(function() { decode(key); }, 100);
 	}
 }
 
 // Read keys from stdin
-stdin = process.openStdin()
+stdin = process.openStdin();
 stdin.setEncoding('utf8');
 stdin.on('data', function (data) {
 	data = data.replace(/\n$/, '');
-	decode(data)
+	decode(data);
 });
 
 // Load URL provider
-require.paths.push('./src', './node_modules')
-process.chdir(__dirname + '/..')
-conf = require('node-config')
+require.paths.push('./src', './node_modules');
+process.chdir(__dirname + '/..');
+conf = require('node-config');
 conf.initConfig(function(err) {
 	if (err) {
-		throw err
+		throw err;
 	}
-	provider = require('url-provider').get(conf.url_provider, conf[conf.url_provider])
+	provider = require('url-provider').get(conf.url_provider, conf[conf.url_provider]);
 	provider.open(function(err) {
-		ready = true
-	})
-})
+		ready = true;
+	});
+});
 

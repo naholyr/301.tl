@@ -1,13 +1,12 @@
 // Hint : you'd better use a dedicated binary for this, like "node-dev"
 // See https://github.com/fgnass/node-dev
 
-var app_script = 'app.js';
+var app_script = 'app.js',
+    child_process = require('child_process'),
+    fs = require("fs"),
+    sys = require("sys");
 
-var child_process = require('child_process');
-var fs = require("fs");
-var sys = require("sys");
-
-dev_server = {
+var dev_server = {
 
     process: null,
 
@@ -72,7 +71,7 @@ dev_server = {
         });
         this.files = [];
     }
-}
+};
 
 
 dev_server.start();
