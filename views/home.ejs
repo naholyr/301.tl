@@ -1,6 +1,6 @@
 <p class="info">See <a href="http://<%= api_host %>" title="API"><%= api_host %></a> for more information</p>
-<div id="error" class="error" style="display:none"></div>
-<div id="shortUrl_container" class="success" style="display:none">Your short URL : <a id="shortUrl"></a></div>
+<p id="error" class="error" style="display:none">
+<p id="shortUrl_container" class="success" style="display:none">Your short URL: <a id="shortUrl"></a><img id="shortUrlImg">
 <form method="post" action="http://<%= api_host %>" id="F_shorten">
  <p><label for="f_longUrl">Too Long URL</label> <input type="text" name="longUrl" id="f_longUrl" size="20" value="http://"><input type="submit" value="Shorten" class="submitLongUrl">
  <p class="additional"><input type="checkbox" name="private" value="1" id="f_private"> <label for="f_private">I want it private</label><span id="if_private">, <label for="f_custom">and I even want a custom URL</label> http://<%= host %>/<input type="text" name="custom" id="f_custom" size="10"></span>
@@ -65,6 +65,9 @@ j(function() {
 				}
 				$('#error').hide();
 				$('#shortUrl').attr({href:res.shortUrl, title:res.longUrl}).html(res.shortUrl);
+				$('#shortUrlImg')
+					.attr({src:"https://chart.googleapis.com/chart?chs=50x50&cht=qr&chl="+encodeURI(res.shortUrl)+"&chld=L|1&choe=UTF-8", title:'QR code for ' + res.shortUrl, alt:res.shortUrl + ' &rarr; ' + res.longUrl})
+					.wrap($('<a>').attr({href:"https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl="+encodeURI(res.shortUrl)+"&chld=L|1&choe=UTF-8", title:'QR code for ' + res.shortUrl}));
 				$('#f_longUrl').val(res.longUrl);
 				$('#shortUrl_container').show();
 			},
