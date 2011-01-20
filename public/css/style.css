@@ -363,3 +363,7 @@ a#shortUrl { font-size: 3em; text-decoration: none; font-weight: bold; }
   text-decoration: none;
   text-shadow: 0 0 0.5em #444;
 }
+code { border: 1px solid #ddd; background: #eee; }
+h2 { font-size: 2em; font-weight: bold; margin: 1em 20px; }
+h3 { font-size: 1.5em; font-weight: bold; margin: 1em 20px; }
+h4 { font-size: 1.1em; margin: 1em 20px; }
