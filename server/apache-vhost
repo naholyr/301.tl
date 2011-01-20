@@ -1,15 +1,22 @@
 <VirtualHost *:80>                                                                                                                                                                                                                                  
-        ServerName mysite.domain
+	ServerName mysite.domain
 
-	# Enable to work with RewriteMap instead of direct redirects
-	# Tests are not very eloquent for now, but it seems this method has some issues with many concurrent connections
-	#RewriteEngine On
-	#RewriteMap longUrl "prg:/usr/local/bin/node /path/to/server/rewrite-map.js"
-	#RewriteRule ^/([a-zA-Z0-9]+) ${longUrl:$1} [R]
+# Enable this to handle decoding using rewrite map feature, but tests do not reveal a good impact on performance
+#	RewriteEngine On
+#	RewriteMap longUrl "prg:/usr/local/bin/node /path/to/301.tl/server/rewrite-map.js"
+#	RewriteRule ^/([a-zA-Z0-9]+) ${longUrl:$1} [R]
 
-	ProxyPass / http://127.0.0.1:3000/
-	CustomLog /var/log/apache2/mysite.domain-access.log combined
-	ErrorLog /var/log/apache2/mysite.domain-error.log
+	ErrorLog /var/log/apache2/301.tl-error.log
+	CustomLog /var/log/apache2/301.tl-access.log combined
+
+# Enable the 4 following lines if you want Apache to handle static elements himself, and proxy the other requests
+# You can set "static_enabled" to false if you choose this option
+#	DocumentRoot /path/to/301.tl/public/
+#	ProxyPass /css !
+#	ProxyPass /js !
+#	ProxyPass /img !
+	ProxyPass / http://127.0.0.1:8001/
+
 	<Proxy *>
 		Allow from all
 	</Proxy>
