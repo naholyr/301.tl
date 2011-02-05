@@ -1,6 +1,6 @@
 process.chdir(__dirname);
 
-require.paths.push('./lib', './node_modules');
+require.paths.unshift('./lib', './node_modules');
 
 var main = require('301.tl');
 
