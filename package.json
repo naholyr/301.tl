@@ -8,7 +8,7 @@
     "node": "*"
   },
   "dependencies": {
-    "express": "1.0.x",
+    "express": ">=1.0.3",
     "ejs": "*",
     "node-config": "*",
     "base-converter": ">=1.0.0",

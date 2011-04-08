@@ -307,20 +307,40 @@ h1 a span { font-size: 1.2em; color: #933; }
 
 /*body { background: #ddd; }
 html { background: #fff; }*/
-#main { width: 600px; font-size: 14px; margin: auto; 
-/*border: 1px solid #ccc; background: #fff;*/ padding: 1.5em;
-border-radius: 20px;
--moz-box-shadow: 0px 0px 25px #444;
--webkit-box-shadow: 10px 10px 5px #444;
-/*box-shadow: 10px 10px 5px #444;*/
+#main { width: 600px; font-size: 14px; margin: auto; padding: 1.5em;
+background-color:#ffffff;
+border-width:2px;
+border-color:#999999;
+-moz-border-radius:10px;
+-webkit-border-radius:10px;
+border-radius:10px;
+/*IE DOES NOT SUPPORT BORDER RADIUS*/
+-moz-box-shadow:5px 5px 25px #000000;
+-webkit-box-shadow:5px 5px 25px #000000;
+box-shadow:5px 5px 25px #000000;
+filter: progid:DXImageTransform.Microsoft.Shadow(strength=5, direction=135, color='#000000');
+-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(strength=5, Direction=135, Color='#000000')";
+/*Shadows look very different in IE (Only cardinal directions supported)*/
+/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+/*Element should have a background-color*/
+/*All filters must be placed together*/
+/*IE DOES NOT SUPPORT BLUR PROPERTY OF SHADOWS*/
+background: -moz-linear-gradient(top, #dddddd, #ffffff);
+background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff));
+background: -o-linear-gradient(top, #dddddd, #ffffff);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff');
+/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff')";
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+background: linear-gradient(top, #dddddd, #ffffff);
+/*--IE9 DOES NOT SUPPORT GRADIENT BACKGROUNDS--*/
 }
 
 footer { padding: 2em 1em; color: #bac; }
-body { margin: 2.5em; /*border: 2px solid #ccc;
--moz-box-shadow: 5px 5px 5px #999;
--webkit-box-shadow: 5px 5px 5px #999;
-box-shadow: 5px 5px 5px #999;*/
-}
+body { margin: 2.5em; }
 
 .info, .success, .warning, .error, .validation { border: 1px solid; margin: 10px 0px; padding:15px 10px 15px 50px; background-repeat: no-repeat; background-position: 10px center; }
 .info { color: #00529B; background-color: #BDE5F8; background-image: url('../img/info.png'); }
