@@ -1,10 +1,8 @@
 process.chdir(__dirname);
 
-require.paths.unshift('./lib', './node_modules');
+var main = require('./lib/301.tl');
 
-var main = require('301.tl');
-
-require('server')(function(server, conf, express) {
+require('./lib/server')(function(server, conf, express) {
 	// main.onPreConfigureRoutes = function(app, conf, express)  { /* prepend your own routes here */ }
 	// main.onPostConfigureRoutes = function(app, conf, express) { /* append your own routes here */ }
 
