@@ -8,11 +8,10 @@
     "node": "*"
   },
   "dependencies": {
-    "express": ">=1.0.3",
-    "ejs": "*",
-    "node-config": "*",
-    "base-converter": ">=1.0.0",
-    "redis": ">=0.5.0",
-    "mongodb": ">=0.7.0"
+    "base-converter": "^1.1.2",
+    "ejs": "^0.5.0",
+    "express": "^1.0.8",
+    "node-config": "0.0.2",
+    "redis": "^0.12.1"
   }
 }
